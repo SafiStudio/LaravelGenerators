@@ -37,3 +37,11 @@ Add post-update function in composer as below:
 `
 "\\SafiStudio\\Installer::postUpdate"
 `
+
+## Usage
+
+`
+php artisan generator:package {PackageName}
+`
+
+where {PackageName} is the name of app component.
