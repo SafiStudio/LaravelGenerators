@@ -41,3 +41,7 @@ php artisan generator:package {PackageName}
 `
 
 where {PackageName} is the name of app component.
+
+### Before component generate
+
+Check app/Generators/Hotels.php file for exapmle of generator's description file
