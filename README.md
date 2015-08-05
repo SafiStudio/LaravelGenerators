@@ -26,17 +26,13 @@ Add the code below in composer ps-4 autoload block:
 }
 ```
 
-Add post-install function in composer as below:
-
-`
-"\\SafiStudio\\Installer::warmCache"
-`
-
 Add post-update function in composer as below:
 
 `
 "\\SafiStudio\\Installer::postUpdate"
 `
+
+Run composer update
 
 ## Usage
 

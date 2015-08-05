@@ -11,12 +11,8 @@ class Installer
     public static function postUpdate(Event $event)
     {
         $composer = $event->getComposer();
+        self::createFiles();
         self::createConsoleCommand();
-    }
-
-    public static function postPackageInstall(PackageEvent $event)
-    {
-        $installedPackage = $event->getOperation()->getPackage();
     }
 
     public static function createConsoleCommand(){
@@ -31,7 +27,7 @@ class Installer
         echo "\nGenerator file is copied. Remeber to add \\SafiStudio\\Console\\Commands\\Generator::class into Kernel commands\n\n";
     }
 
-    public static function warmCache(Event $event){
+    public static function createFiles(){
         $folders = [
             'public/css',
             'public/css/admin',
@@ -78,8 +74,6 @@ class Installer
                 echo 'Create '.$file." file\n";
             }
         }
-
-        self::createConsoleCommand();
     }
 
 }
