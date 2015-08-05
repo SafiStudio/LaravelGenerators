@@ -1,0 +1,379 @@
+@import url(http://necolas.github.io/normalize.css/latest/normalize.css);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,300,700,400italic&subset=latin,latin-ext);
+
+@font-family: 'Roboto';
+@font-size: 14px;
+@main-color: #000000;
+@main-background: url(../../images/bg_standard.jpg);
+@main-link-color: #000000;
+@alert-standard: #008bcc;
+@alert-danger: #cc0024;
+
+@shadow-color: rgba(0,0,0,0.8);
+@shadow-size: 2px;
+@card-background: #ffffff;
+
+@border-color: #cccccc;
+@border-th-color: #000000;
+@border-td-color: #cccccc;
+
+@form-line-height: 35px;
+@buttons-standard: #0017cc;
+@buttons-back: #cc2454;
+@label-color: #7f7f7f;
+@input-focus-color: #b332cc;
+@input-unfocus-color: #dbdcdd;
+@edit-color-link: #0115cc;
+@remove-color-link: #cc0515;
+@checkbox-active: #003d3f;
+
+a{
+  color: @main-link-color;
+  text-decoration: none;
+}
+
+.box-shadow(){
+  box-shadow: 0px 0px @shadow-size @shadow-color;
+  -moz-box-shadow: 0px 0px @shadow-size @shadow-color;
+  -webkit-box-shadow:  0px 0px @shadow-size @shadow-color;
+}
+.border-radius(@radius){
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+.transition(@duration){
+  transition: all @duration;
+  -moz-transition: all @duration;
+  -webkit-transition: all @duration;
+}
+.ul-no-style(){
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+// GLOBAL
+*{
+  box-sizing: border-box;
+}
+body{
+  font-family: @font-family;
+  font-size: @font-size;
+  color: @main-color;
+  background-image: @main-background;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+// GLOBAL CLASSES
+.row{
+  width: 100%;
+  display: block;
+}
+.content{
+  width: 100%;
+  padding: 15px;
+}
+.icon{
+  font-size: 1em;
+  margin-right: 3px;
+}
+.alert{
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0px;
+  color: #ffffff;
+  background: @alert-standard;
+  display: inline-block;
+  font-size: 1em;
+  &.danger{
+    background: @alert-danger;
+  }
+  ul{
+    .ul-no-style;
+  }
+}
+// CARD
+.card{
+  width: 100%;
+  background: #ffffff;
+  .box-shadow;
+  .card-title{
+    width: 100%;
+    font-size: 1.2em;
+    border-bottom: 1px solid @border-color;
+    padding: 10px 15px;
+    h3, h2, h1{
+      margin: 0px;
+      padding: 0px;
+      font-weight: 400;
+    }
+    .card-title-actions{
+      float: right;
+      margin-top: -30px;
+      a{
+        float: left;
+        margin-left: 10px;
+        color: #ffffff;
+        line-height: 35px;
+        padding: 0px 10px;
+        font-size: 0.8em;
+        &.standard{
+          background: @buttons-standard;
+        }
+        &.back{
+          background: @buttons-back;
+        }
+      }
+    }
+  }
+  .card-text{
+    width: 100%;
+    padding: 0px 15px;
+    &.bottom-space{
+      padding-bottom: 15px;
+    }
+    &.form-container{
+      padding-top: 20px;
+    }
+  }
+  &.login-card{
+    width: 400px;
+    min-height: 280px;
+    position: fixed;
+    left: 50%;
+    margin-left: -200px;
+    top: 50%;
+    margin-top: -200px;
+  }
+}
+// END CARD
+.form{
+  width: 100%;
+  .form-line{
+    width: 100%;
+    padding: 10px 0px 5px;
+    margin-bottom: 15px;
+    position: relative;
+    .form-line-label{
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      font-size: 0.7em;
+      z-index: 1;
+      color: @label-color;
+      &.for-checkbox, &.for-select{
+        position: static;
+        float: left;
+        font-size: 1em;
+      }
+      &.for-select{
+        line-height: @form-line-height;
+      }
+      &.for-file{
+        position: relative;
+        display: inline-block;
+        input{
+          display: none;
+        }
+        span{
+          position: absolute;
+          top: -10px;
+        }
+        .filename{
+          margin-top: 10px;
+          position: static;
+          height: @form-line-height;
+          line-height: @form-line-height;
+          display: inline-block;
+          padding: 0px 10px;
+          background: @input-focus-color;
+          color: #ffffff;
+          cursor: pointer;
+          i{
+            line-height: @form-line-height;
+            margin-right: 5px;
+          }
+          em{
+            font-style: normal;
+            font-size: 1.3em;
+          }
+        }
+      }
+    }
+    .form-line-text{
+      width: 100%;
+      line-height: @form-line-height;
+      height: @form-line-height;
+      position: relative;
+      z-index: 2;
+      background: none;
+      border: 0px;
+      padding: 0px 5px;
+      border-bottom: 2px solid @input-unfocus-color;
+      &:focus{
+        border-bottom: 2px solid @input-focus-color;
+      }
+    }
+    .form-line-textarea{
+      width: 100%;
+      line-height: 1.2em;
+      margin-top: 7px;
+      position: relative;
+      z-index: 2;
+      background: none;
+      border: 0px;
+      padding: 0px 5px;
+      border-bottom: 2px solid @input-unfocus-color;
+      &:focus{
+        border-bottom: 2px solid @input-focus-color;
+      }
+    }
+    .safi-checkbox{
+       margin-left: 10px;
+       position: relative;
+       display: inline-block;
+       &:after{
+         content: " ";
+         position: absolute;
+         border: 1px solid @border-color;
+         width: @form-line-height/2;
+         height: @form-line-height/2;
+         left: -2px;
+         top: 0px;
+         background: @card-background;
+         cursor: pointer;
+         .border-radius(4px);
+         .transition(0.5s);
+       }
+       &.active:after{
+         background: @input-focus-color;
+         border-color: @input-focus-color;
+       }
+     }
+    .safi-select{
+      margin-left: 10px;
+      position: relative;
+      display: inline-block;
+      &:after{
+        font-family: "FontAwesome";
+        content: "\f078";
+        position: absolute;
+        width: @form-line-height;
+        line-height: @form-line-height;
+        text-align: center;
+        height: @form-line-height;
+        right: 0px;
+        top: -2px;
+        color: #ffffff;
+        background: @card-background;
+        cursor: pointer;
+        background: @input-focus-color;
+        pointer-events: none;
+      }
+      select:focus{
+        outline: 0 none;
+      }
+      select:-moz-focusring{
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+      }
+    }
+    .form-line-checkbox{
+
+    }
+    .form-line-select{
+      width: auto;
+      padding-right: 45px;
+      line-heihgt: @form-line-height;
+      height: @form-line-height;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      apperance: none;
+      display: inline-block;
+      border: 0px;
+      border-bottom: 2px solid @input-unfocus-color;
+      &:focus{
+        border-bottom: 2px solid @input-focus-color;
+      }
+    }
+    .form-line-button{
+      font-size: 1em;
+      line-height: @form-line-height;
+      padding: 0px 15px 0 10px;
+      color: #ffffff;
+      border: none;
+      &.standard{
+        background: @buttons-standard;
+      }
+    }
+  }
+}
+
+// TOP
+.top{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  .header{
+    width: 100%;
+    background: #ffffff;
+    height: 70px;
+    .box-shadow;
+    .logo{
+      padding: 18px;
+      float: left;
+      font-size: 2em;
+    }
+    nav{
+      float: right;
+      padding-top: 28px;
+      ul{
+        .ul-no-style;
+        li{
+          float: left;
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}
+
+.middle{
+  margin-top: 70px;
+  width: 100%;
+}
+
+.list-table{
+  width: 100%;
+  margin-top: 10px;
+  th{
+    border-bottom: 2px solid @border-th-color;
+    line-height: 35px;
+  }
+  td{
+    border-bottom: 1px solid @border-td-color;
+    padding: 0px 10px;
+    line-height: 35px;
+    font-size: 0.9em;
+    &.actions{
+      text-align: center;
+      a{
+        margin: 0px 5px;
+        display: inline-block;
+        i{
+          margin: 10px 0px;
+          font-size: 1.3em;
+          display: inline-block;
+        }
+        &.edit{
+          color: @edit-color-link;
+        }
+        &.remove{
+          color: @remove-color-link;
+        }
+      }
+    }
+  }
+}

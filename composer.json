@@ -15,10 +15,10 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-
+			'\\SafiStudio\\Installer::postPackageInstall'
 		],
 		"post-update-cmd": [
-
+		  '\\SafiStudio\\Installer::postUpdate'
 		]
 	}
 }

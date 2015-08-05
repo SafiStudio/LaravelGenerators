@@ -3,12 +3,7 @@
  * Generator for form and list views
  * version 0.1
  */
-namespace GrillUp\Console\Commands;
-
-$bpt = base_path().'/vendor/safistudio/generators/src/FormGenerator.php'; // TODO replace by right code
-require_once($bpt); // TODO replace by right code
-$bpt = base_path().'/vendor/safistudio/generators/src/ListGenerator.php'; // TODO replace by right code
-require_once($bpt); // TODO replace by right code
+namespace AppNameSpace\Console\Commands;
 
 use Illuminate\Console\Command;
 use SafiStudio\FormGenerator;
