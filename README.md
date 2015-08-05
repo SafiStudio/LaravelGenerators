@@ -44,4 +44,4 @@ where {PackageName} is the name of app component.
 
 ### Before component generate
 
-Check app/Generators/Hotels.php file for check how generator's description looks like
+Check app/Generators/Hotels.php file to check how generator's description looks like
