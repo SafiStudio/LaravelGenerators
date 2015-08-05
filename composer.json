@@ -1,0 +1,24 @@
+{
+	"name": "safistudio/generators",
+	"description": "Laravel artisan command generating MVC structure of app components",
+	"keywords": ["generators", "laravel"],
+	"license": "MIT",
+	"type": "library",
+	"require": {
+	  "php": ">=5.5.9",
+	  "laravel/framework": "5.1.*"
+	},
+	"autoload": {
+		"classmap": [
+			"src"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+
+		],
+		"post-update-cmd": [
+
+		]
+	}
+}
