@@ -43,6 +43,7 @@ class Installer
             'public/data',
             'public/images',
             'resources/views/layouts',
+            'app/Generators',
         ];
 
         $files = [
@@ -60,6 +61,7 @@ class Installer
             'vendor/safistudio/generators/assets/js/admin/scripts.js' => 'public/js/admin/scripts.js',
             'vendor/safistudio/generators/assets/images/bg_standard.jpg' => 'public/images/bg_standard.jpg',
             'vendor/safistudio/generators/templates/layouts/admin.blade.php' => 'resources/views/layouts/admin.blade.php',
+            'vendor/safistudio/generators/sample/Hotels.php' => 'app/Generators/Hotels.php',
         ];
         echo "\n";
         foreach($folders as $folder){
