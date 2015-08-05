@@ -2,7 +2,22 @@
 Artisan command to generate MVC structure of app component
 
 ## Installation
-Put the code above into composer ps-4 autoload:
+Add new require to composer file:
+
+`
+"safistudio/generators": "@dev"
+`
+
+Add new repository to composer file:
+
+```javascript
+{
+    "type": "vcs",
+    "url": "https://github.com/SafiStudio/LaravelGenerators"
+}
+```
+
+Add the code below in composer ps-4 autoload block:
 
 ```javascript
 "psr-4": {
@@ -11,9 +26,14 @@ Put the code above into composer ps-4 autoload:
 }
 ```
 
-Put function above into post-install-cmd:
+Add post-install function in composer as below:
 
 `
 "\\SafiStudio\\Installer::warmCache"
 `
 
+Add post-update function in composer as below:
+
+`
+"\\SafiStudio\\Installer::postUpdate"
+`
