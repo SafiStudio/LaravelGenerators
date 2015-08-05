@@ -5,20 +5,22 @@
 	"license": "MIT",
 	"type": "library",
 	"require": {
-	  "php": ">=5.5.9",
-	  "laravel/framework": "5.1.*"
+	  "php": ">=5.5.9"
 	},
 	"autoload": {
 		"classmap": [
 			"src"
-		]
+		],
+		"psr-4": {
+		  "SafiStudio\\": ""
+		}
 	},
 	"scripts": {
 		"post-install-cmd": [
 			"\\SafiStudio\\Installer::postPackageInstall"
 		],
 		"post-update-cmd": [
-		  "\\SafiStudio\\Installer::postUpdate'"
+		  	"\\SafiStudio\\Installer::postUpdate"
 		]
 	}
 }

@@ -1,9 +1,9 @@
 <?php
 /**
- * Generator for form and list views
+ * Generator for admin form and list views
  * version 0.1
  */
-namespace AppNameSpace\Console\Commands;
+namespace SafiStudio\Console\Commands;
 
 use Illuminate\Console\Command;
 use SafiStudio\FormGenerator;

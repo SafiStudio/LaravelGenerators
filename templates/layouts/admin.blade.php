@@ -18,9 +18,6 @@
                         <a href="#">Sample Link</a>
                     </li>
                     <li>
-                        <a href="{{  action('Admin\GrillPlacesController@index') }}">Lista Grillowania</a>
-                    </li>
-                    <li>
                         <a href="{{ action('Auth\AuthController@getLogout') }}" class="mdl-menu__item">
                             <i class="icon fa fa-sign-out"></i> Wyloguj się
                         </a>
