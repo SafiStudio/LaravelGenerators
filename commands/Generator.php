@@ -336,7 +336,7 @@ class Generator extends Command
             $header = "<?php \n\n".$header;
         fwrite($rt_handle, $header);
 
-        $command = "\nRoute::{method}('{uri}', [\n\t'middleware' => 'auth',\n\t'uses' => '{controller}@{action}'\n]);";
+        $command = "\nRoute::{method}('{uri}', [\n\t'middleware' => 'auth.admin',\n\t'uses' => '{controller}@{action}'\n]);";
         // List routing
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','get',$list_cmd);
