@@ -32,6 +32,9 @@ Add post-update function in composer as below:
 "\\SafiStudio\\Installer::postUpdate"
 `
 
+Run composer update
+
+
 Add new auth middleware in Kernel middlewares
 
 `
@@ -43,8 +46,6 @@ Add new command in Kernel commands
 `
 \SafiStudio\Console\Commands\Generator::class
 `
-
-Run composer update
 
 ## Usage
 
