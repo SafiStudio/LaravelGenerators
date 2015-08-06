@@ -139,4 +139,22 @@ class FormGenerator{
         return $code;
     }
 
+    private static function getPasswordField($field){
+        $code_file = base_path().'/vendor/safistudio/generators/templates/elements/inputs/'.$field['type'].'.php';
+        if(!file_exists($code_file))
+            die('Can not find input file '.$code_file);
+
+        $code = file_get_contents($code_file);
+
+        $params = array();
+        foreach($field['params'] as $key=>$value){
+            $params []= $key.'="'.$value.'"';
+        }
+        $params = implode(' ', $params);
+
+        $code = str_replace('{params}', $params, $code);
+
+        return $code;
+    }
+
 }

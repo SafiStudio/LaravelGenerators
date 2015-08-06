@@ -11,9 +11,7 @@ body {
   font-family: 'Roboto';
   font-size: 14px;
   color: #000000;
-  background-image: url(../../images/bg_standard.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: #3f3f3f;
 }
 .row {
   width: 100%;
