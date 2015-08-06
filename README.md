@@ -28,9 +28,12 @@ Add the code below in composer ps-4 autoload block:
 
 Add post-update function in composer as below:
 
-`
-"\\SafiStudio\\Installer::postUpdate"
-`
+```javascript
+"post-update-cmd": [
+    "php artisan optimize",
+    "\\SafiStudio\\Installer::postUpdate"
+],
+```
 
 Run composer update
 
