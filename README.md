@@ -30,9 +30,8 @@ Add post-update function in composer as below:
 
 ```javascript
 "post-update-cmd": [
-    "php artisan optimize",
     "\\SafiStudio\\Installer::postUpdate"
-],
+]
 ```
 
 Run composer update
