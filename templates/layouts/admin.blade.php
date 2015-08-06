@@ -18,7 +18,7 @@
                         <a href="#">Sample Link</a>
                     </li>
                     <li>
-                        <a href="{{ action('Auth\AuthController@getLogout') }}" class="mdl-menu__item">
+                        <a href="{{ action('Admin\AuthController@getLogout') }}" class="mdl-menu__item">
                             <i class="icon fa fa-sign-out"></i> Wyloguj się
                         </a>
                     </li>

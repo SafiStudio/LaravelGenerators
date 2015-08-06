@@ -60,8 +60,8 @@ class Installer
             'vendor/safistudio/generators/assets/js/admin/scripts.js' => 'public/js/admin/scripts.js',
             'vendor/safistudio/generators/templates/layouts/admin.blade.php' => 'resources/views/layouts/admin.blade.php',
             'vendor/safistudio/generators/templates/layouts/login.blade.php' => 'resources/views/layouts/login.blade.php',
-            'vendor/safistudio/generators/templates/views/admin/login.blade.php' => 'resources/views/admin/login.blade.php',
-            'vendor/safistudio/generators/templates/views/admin/panel.blade.php' => 'resources/views/admin/panel.blade.php',
+            'vendor/safistudio/generators/templates/views/login.blade.php' => 'resources/views/admin/login.blade.php',
+            'vendor/safistudio/generators/templates/views/panel.blade.php' => 'resources/views/admin/panel.blade.php',
             'vendor/safistudio/generators/sample/Hotels.php' => 'app/Generators/Hotels.php',
         ];
         echo "\n";
