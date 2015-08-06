@@ -35,7 +35,7 @@ Add post-update function in composer as below:
 Add new auth middleware in Kernel middlewares
 
 `
-'auth.admin' => "APP_NAMESPACE\Http\Middleware\Admin\Authenticate::class
+'auth.admin' => 'APP_NAMESPACE\Http\Middleware\Admin\Authenticate::class'
 `
 
 Add new command in Kernel commands
