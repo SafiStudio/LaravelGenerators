@@ -70,7 +70,7 @@ class Installer
             'vendor/safistudio/generators/assets/js/admin/calendar.js' => 'public/js/admin/calendar.js',
             'vendor/safistudio/generators/assets/images/admin/cms-logo.png' => 'public/images/admin/cms-logo.png',
             'vendor/safistudio/generators/assets/images/admin/favicon.ico' => 'public/images/admin/favicon.ico',
-            'vendor/safistudio/generators/assets/images/admin/login-bg.png' => 'public/images/admin/login-bg.png',
+            'vendor/safistudio/generators/assets/images/admin/login-bg.jpg' => 'public/images/admin/login-bg.jpg',
             'vendor/safistudio/generators/assets/images/admin/logo-white.svg' => 'public/images/admin/logo-white.svg',
             'vendor/safistudio/generators/templates/layouts/admin.blade.php' => 'resources/views/layouts/admin.blade.php',
             'vendor/safistudio/generators/templates/layouts/login.blade.php' => 'resources/views/layouts/login.blade.php',
