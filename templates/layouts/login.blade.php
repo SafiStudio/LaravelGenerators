@@ -4,6 +4,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{ asset('css/fontawesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
+    <script src="{{ asset('js/admin/jquery-2.1.4.min.js') }}"></script>
 </head>
 <body class="login">
 <div class="card login-card">

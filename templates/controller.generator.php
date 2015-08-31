@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use GeneratorNameSpace\GeneratorNameModel;
 use GeneratorNameSpace\Http\Requests\Admin\GeneratorNameRequest;
 use GeneratorNameSpace\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
+use SafiStudio\HeadGenerator;
 
 class GeneratorNameController extends Controller
 {
@@ -16,8 +18,17 @@ class GeneratorNameController extends Controller
      */
     public function index()
     {
-        $data = GeneratorNameModel::all();
-        return view('{list_view}', ['data' => $data]);
+        $search = \Request::input('search');
+        if(isset($search['text'])){
+            Session::put('GeneratorName.search.text', $search['text']);
+            return redirect()->action('Admin\GeneratorNameController@index');
+        }
+
+        $search_value = Session::get('GeneratorName.search.text', '');
+        $data = GeneratorNameModel::search($search_value)->paginate(30);
+        $data->setPath(''); // set default path to pagination
+
+        return view('{list_view}', ['data' => $data, 'search_value' => $search_value]);
     }
 
     /**
@@ -28,7 +39,10 @@ class GeneratorNameController extends Controller
     public function create()
     {
         $item = new GeneratorNameModel();
-        return view('{form_view}',['item' => $item]);
+        $head = new HeadGenerator();
+        // $head->attachScript('js/editor/ckeditor.js');
+
+        return view('{form_view}',['item' => $item, '_head_scripts' => $head->getHead()]);
     }
 
     /**
@@ -102,7 +116,11 @@ class GeneratorNameController extends Controller
         if($validator->fails()){
             return redirect()->action('Admin\GeneratorNameController@index')->withErrors($validator);
         }
-        return view('{form_view}', ['item' => $item]);
+
+        $head = new HeadGenerator();
+        // $head->attachScript('js/editor/ckeditor.js');
+
+        return view('{form_view}',['item' => $item, '_head_scripts' => $head->getHead()]);
     }
 
     /**

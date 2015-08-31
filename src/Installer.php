@@ -31,23 +31,32 @@ class Installer
         $folders = [
             'public/css',
             'public/css/admin',
+            'public/css/front',
             'public/css/fontawesome',
             'public/css/fontawesome/css',
             'public/css/fontawesome/fonts',
             'public/js',
             'public/js/admin',
+            'public/js/front',
             'public/data',
             'public/images',
+            'public/images/admin',
+            'public/images/front',
             'resources/views/layouts',
             'resources/views/admin',
+            'resources/views/front',
             'app/Generators',
             'app/Http/Controllers/Admin',
+            'app/Http/Controllers/Front',
             'app/Http/Middleware/Admin',
+            'app/Http/Middleware/Front',
         ];
 
         $files = [
             'vendor/safistudio/generators/assets/css/admin/style.less' => 'public/css/admin/style.less',
             'vendor/safistudio/generators/assets/css/admin/style.css' => 'public/css/admin/style.css',
+            'vendor/safistudio/generators/assets/css/admin/calendar.less' => 'public/css/admin/calendar.less',
+            'vendor/safistudio/generators/assets/css/admin/calendar.css' => 'public/css/admin/calendar.css',
             'vendor/safistudio/generators/assets/css/fontawesome/css/font-awesome.css' => 'public/css/fontawesome/css/font-awesome.css',
             'vendor/safistudio/generators/assets/css/fontawesome/css/font-awesome.min.css' => 'public/css/fontawesome/css/font-awesome.min.css',
             'vendor/safistudio/generators/assets/css/fontawesome/fonts/FontAwesome.otf' => 'public/css/fontawesome/fonts/FontAwesome.otf',
@@ -58,11 +67,19 @@ class Installer
             'vendor/safistudio/generators/assets/css/fontawesome/fonts/fontawesome-webfont.woff2' => 'public/css/fontawesome/fonts/fontawesome-webfont.woff2',
             'vendor/safistudio/generators/assets/js/admin/jquery-2.1.4.min.js' => 'public/js/admin/jquery-2.1.4.min.js',
             'vendor/safistudio/generators/assets/js/admin/scripts.js' => 'public/js/admin/scripts.js',
+            'vendor/safistudio/generators/assets/js/admin/calendar.js' => 'public/js/admin/calendar.js',
+            'vendor/safistudio/generators/assets/images/admin/cms-logo.png' => 'public/images/admin/cms-logo.png',
+            'vendor/safistudio/generators/assets/images/admin/favicon.ico' => 'public/images/admin/favicon.ico',
+            'vendor/safistudio/generators/assets/images/admin/login-bg.png' => 'public/images/admin/login-bg.png',
+            'vendor/safistudio/generators/assets/images/admin/logo-white.svg' => 'public/images/admin/logo-white.svg',
             'vendor/safistudio/generators/templates/layouts/admin.blade.php' => 'resources/views/layouts/admin.blade.php',
             'vendor/safistudio/generators/templates/layouts/login.blade.php' => 'resources/views/layouts/login.blade.php',
             'vendor/safistudio/generators/templates/views/login.blade.php' => 'resources/views/admin/login.blade.php',
             'vendor/safistudio/generators/templates/views/panel.blade.php' => 'resources/views/admin/panel.blade.php',
+            'vendor/safistudio/generators/templates/views/menu.blade.php' => 'resources/views/admin/menu.blade.php',
             'vendor/safistudio/generators/sample/Hotels.php' => 'app/Generators/Hotels.php',
+            'vendor/safistudio/generators/templates/config/cms.php' => 'config/cms.php',
+
         ];
         echo "\n";
         foreach($folders as $folder){

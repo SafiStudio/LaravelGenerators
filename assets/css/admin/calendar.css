@@ -1,0 +1,133 @@
+#ssCalendar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  font-size: 14px;
+}
+#ssCalendar.loaded .overlay {
+  opacity: 1;
+}
+#ssCalendar.loaded .card {
+  opacity: 1;
+  -ms-transform: translate(-50%, -50%) scale(1);
+  /* IE 9 */
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  /* Chrome, Safari, Opera */
+  transform: translate(-50%, -50%) scale(1);
+}
+#ssCalendar .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+#ssCalendar .card {
+  width: 100%;
+  max-width: 300px;
+  background: #ffffff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  -ms-transform: translate(-50%, -50%) scale(0.5);
+  /* IE 9 */
+  -webkit-transform: translate(-50%, -50%) scale(0.5);
+  /* Chrome, Safari, Opera */
+  transform: translate(-50%, -50%) scale(0.5);
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.15);
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+#ssCalendar .card .card-head {
+  width: 100%;
+  display: inline-block;
+  background: #4285f4;
+  text-align: center;
+  color: #ffffff;
+  padding: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#ssCalendar .card .card-head h4 {
+  display: inline-block;
+  width: auto;
+  line-height: 1.6em;
+  font-size: 1.0em;
+  font-weight: 200;
+  margin: 10px 0;
+}
+#ssCalendar .card .card-head span {
+  margin: 10px 10px;
+  line-height: 1.6em;
+  float: left;
+  cursor: pointer;
+}
+#ssCalendar .card .card-head span i {
+  font-size: 1.5em;
+}
+#ssCalendar .card .card-head span#nextMonth {
+  float: right;
+}
+#ssCalendar .card .card-date {
+  width: 100%;
+  display: inline-block;
+  background: #416bd7;
+  text-align: center;
+  color: #ffffff;
+  padding: 0;
+}
+#ssCalendar .card .card-date h3 {
+  font-size: 1.0em;
+  font-weight: 200;
+  margin: 0 0 10px;
+}
+#ssCalendar .card .card-date h2 {
+  font-size: 3.8em;
+  font-weight: 200;
+  margin: 10px 0 0;
+}
+#ssCalendar .card .card-grid {
+  padding: 10px;
+}
+#ssCalendar .card .card-grid span {
+  width: 30px;
+  height: 30px;
+  font-size: 0.9em;
+  line-height: 28px;
+  margin: 2px 5px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #ffffff;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+}
+#ssCalendar .card .card-grid span.active {
+  border-color: #3acc5d;
+  background: #3acc5d;
+  color: #ffffff;
+}
+#ssCalendar .card .card-grid span.active-day {
+  cursor: pointer;
+}
+#ssCalendar .card .card-grid span.active-day:hover {
+  border-color: #e7ebe3;
+  background: #e7ebe3;
+  color: #000000;
+}

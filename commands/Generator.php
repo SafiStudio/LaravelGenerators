@@ -183,6 +183,14 @@ class Generator extends Command
 
         $model = str_replace("'{fillable}'", $fillable, $model); // Set fillable fields
 
+        $searchable = [];
+        foreach($form['search'] as $key => $field){
+            $searchable []= "'".$field."'";
+        }
+        $searchable = '['.implode(', ', $searchable).']';
+
+        $model = str_replace("'{searchable}'", $searchable, $model); // Set fillable fields
+
         $fmodel = fopen($model_path.$model_name.'.php', 'w');
         fwrite($fmodel, $model);
         fclose($fmodel);
@@ -336,56 +344,68 @@ class Generator extends Command
             $header = "<?php \n\n".$header;
         fwrite($rt_handle, $header);
 
-        $command = "\nRoute::{method}('{uri}', [\n\t'middleware' => 'auth.admin',\n\t'uses' => '{controller}@{action}'\n]);";
+        $command_start = "\nRoute::group(['middleware' => 'auth.admin'], function(){\n\tRoute::group(['prefix' => 'admin/".strtolower($this->package)."'], function(){";
+        $command = "\n\t\tRoute::{method}('{uri}', [\n\t\t\t'uses' => '{controller}@{action}'\n\t\t]);";
         // List routing
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','get',$list_cmd);
-        $list_cmd = str_replace('{uri}','admin/'.strtolower($this->package),$list_cmd);
+        $list_cmd = str_replace('{uri}','/',$list_cmd);
         $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
         $list_cmd = str_replace('{action}','index',$list_cmd);
-        fwrite($rt_handle, $list_cmd);
+        $command_start .= $list_cmd;
+        // List POST routing
+        $list_cmd = $command;
+        $list_cmd = str_replace('{method}','post',$list_cmd);
+        $list_cmd = str_replace('{uri}','/',$list_cmd);
+        $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
+        $list_cmd = str_replace('{action}','index',$list_cmd);
+        $command_start .= $list_cmd;
         // New form
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','get',$list_cmd);
-        $list_cmd = str_replace('{uri}','admin/'.strtolower($this->package).'/form',$list_cmd);
+        $list_cmd = str_replace('{uri}','form',$list_cmd);
         $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
         $list_cmd = str_replace('{action}','create',$list_cmd);
-        fwrite($rt_handle, $list_cmd);
+        $command_start .= $list_cmd;
         // Store form
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','post',$list_cmd);
-        $list_cmd = str_replace('{uri}','admin/'.strtolower($this->package).'/form',$list_cmd);
+        $list_cmd = str_replace('{uri}','form',$list_cmd);
         $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
         $list_cmd = str_replace('{action}','store',$list_cmd);
-        fwrite($rt_handle, $list_cmd);
+        $command_start .= $list_cmd;
         // Edit form
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','get',$list_cmd);
-        $list_cmd = str_replace('{uri}','admin/'.strtolower($this->package).'/form/{id}',$list_cmd);
+        $list_cmd = str_replace('{uri}','form/{id}',$list_cmd);
         $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
         $list_cmd = str_replace('{action}','edit',$list_cmd);
-        fwrite($rt_handle, $list_cmd);
+        $command_start .= $list_cmd;
         // Update form
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','post',$list_cmd);
-        $list_cmd = str_replace('{uri}','admin/'.strtolower($this->package).'/form/{id}',$list_cmd);
+        $list_cmd = str_replace('{uri}','form/{id}',$list_cmd);
         $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
         $list_cmd = str_replace('{action}','update',$list_cmd);
         fwrite($rt_handle, $list_cmd);
         // Remove form
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','get',$list_cmd);
-        $list_cmd = str_replace('{uri}','admin/'.strtolower($this->package).'/remove/{id}',$list_cmd);
+        $list_cmd = str_replace('{uri}','remove/{id}',$list_cmd);
         $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
         $list_cmd = str_replace('{action}','destroy',$list_cmd);
-        fwrite($rt_handle, $list_cmd);
+        $command_start .= $list_cmd;
         // Show item
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','get',$list_cmd);
-        $list_cmd = str_replace('{uri}','admin/'.strtolower($this->package).'/item/{id}',$list_cmd);
+        $list_cmd = str_replace('{uri}','item/{id}',$list_cmd);
         $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
         $list_cmd = str_replace('{action}','show',$list_cmd);
-        fwrite($rt_handle, $list_cmd);
+        $command_start .= $list_cmd;
+
+        // Write to routes
+        $command_end = "\n\t});\n});";
+        fwrite($rt_handle, $command_start . $command_end);
 
         $this->info('Routing created sucessfully');
     }

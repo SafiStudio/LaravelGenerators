@@ -33,10 +33,29 @@ $(document).ready(function(){
     $('.actions .remove').click(function(){
         return confirm('Czy jesteś pewny, że chcesz wykonać akcję ?');
     });
+
+    ssCalendar('.calendar');
     // FORMS END ---------------
 
+    // ALERTS
     $('.alert').click(function(){
         $(this).fadeOut();
     });
+    // END ALERTS
+
+    // SEARCH
+    $('.search-box .button.search').click(function(){
+        if($(this).parent().hasClass('active'))
+            $(this).parent().removeClass('active');
+        else
+            $(this).parent().addClass('active');
+    });
+    $('.search-box .search-input-value').keyup(function(){
+       $('.search-box .search-value').text($(this).val());
+    });
+    $('.search-box .search-input-value').change(function(){
+       $('.search-box .search-value').text($(this).val());
+    });
+    // END SEARCH
 
 });

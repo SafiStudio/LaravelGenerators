@@ -1,15 +1,47 @@
 <?php
+$sql = "
+    CREATE TABLE IF NOT EXISTS hotels(
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(255) NULL,
+    `description` TEXT NOT NULL,
+    `city` VARCHAR(100) NOT NULL,
+    `post_code` VARCHAR(6) NOT NULL,
+    `address` VARCHAR(255) NOT NULL,
+    `create_date` DATETIME NOT NULL,
+    PRIMARY KEY(id)
+    );
+";
 // Form view
 $form = [
-    'title' => 'Formularz hotelu',
+    'title' => 'Formularz Hotelu',
     'fields' => [
         [
             'label' => 'Tytuł',
             'name' => 'title',
             'type' => 'text',
             'params' => [
-                'size' => 50,
+                'size' => 150,
+                'maxlength' => 255,
+            ],
+            'rules' => 'required',
+        ],
+        [
+            'label' => 'Miasto',
+            'name' => 'city',
+            'type' => 'text',
+            'params' => [
+                'size' => 150,
                 'maxlength' => 100,
+            ],
+            'rules' => 'required',
+        ],
+        [
+            'label' => 'Kod pocztowy',
+            'name' => 'post_code',
+            'type' => 'text',
+            'params' => [
+                'size' => 150,
+                'maxlength' => 6,
             ],
             'rules' => 'required',
         ],
@@ -19,35 +51,15 @@ $form = [
             'type' => 'text',
             'params' => [
                 'size' => 150,
-                'maxlength' => 100,
+                'maxlength' => 255,
             ],
             'rules' => 'required',
         ],
         [
-            'label' => 'Zdjęcie',
-            'name' => 'image',
-            'type' => 'file',
+            'label' => 'Opis',
+            'name' => 'description',
+            'type' => 'editor',
             'params' => [
-                'size' => 150,
-                'maxlength' => 100,
-            ],
-            'rules' => '',
-        ],
-        [
-            'label' => 'Blisko wody',
-            'name' => 'near_water',
-            'type' => 'checkbox',
-            'params' => [],
-            'rules' => '',
-        ],
-        [
-            'label' => 'Liczba pokoi',
-            'name' => 'seats',
-            'type' => 'select',
-            'params' => [],
-            'options' => [
-                100 => '100',
-                20000 => '2000 i więcej',
             ],
             'rules' => 'required',
         ],
@@ -57,7 +69,7 @@ $form = [
 // List view
 $list = [
     'title' => 'Lista Hoteli',
-    'headers' => ['Nazwa', 'Adres', 'Opis'],
+    'headers' => ['Tytuł', 'Miasto', 'Adres'],
     'columns' => [
         [
             'type' => 'text',
@@ -65,11 +77,14 @@ $list = [
         ],
         [
             'type' => 'text',
-            'name' => 'address',
+            'name' => 'city',
         ],
         [
             'type' => 'text',
-            'name' => 'description',
+            'name' => 'address',
         ],
     ],
 ];
+
+// Searchable fields
+$search = ['title','city','address','description'];
