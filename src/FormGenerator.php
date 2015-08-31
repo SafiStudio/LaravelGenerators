@@ -27,7 +27,12 @@ class FormGenerator{
         $f_lines = array();
         foreach($form['fields'] as $field){
             $method = 'get'.ucfirst($field['type']).'Field';
-            $input = self::$method($field);
+            if(method_exists(self::class, $method)){
+                $input = self::$method($field);
+            }
+            else{
+                $input = self::getStandardField($field);
+            }
             $line = file_get_contents($form_line);
 
             $line = str_replace('{input}', $input, $line);
@@ -42,7 +47,7 @@ class FormGenerator{
         return $rt_data;
     }
 
-    private static function getTextField($field){
+    private static function getStandardField($field){
         $code_file = base_path().'/vendor/safistudio/generators/templates/elements/inputs/'.$field['type'].'.php';
         if(!file_exists($code_file))
             die('Can not find input file '.$code_file);

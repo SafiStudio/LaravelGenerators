@@ -184,11 +184,12 @@ class Generator extends Command
         $model = str_replace("'{fillable}'", $fillable, $model); // Set fillable fields
 
         $searchable = [];
-        foreach($form['search'] as $key => $field){
-            $searchable []= "'".$field."'";
+        if(is_array($search)){
+            foreach($search as $key => $field){
+                $searchable []= "'".$field."'";
+            }
+            $searchable = '['.implode(', ', $searchable).']';
         }
-        $searchable = '['.implode(', ', $searchable).']';
-
         $model = str_replace("'{searchable}'", $searchable, $model); // Set fillable fields
 
         $fmodel = fopen($model_path.$model_name.'.php', 'w');
@@ -387,7 +388,7 @@ class Generator extends Command
         $list_cmd = str_replace('{uri}','form/{id}',$list_cmd);
         $list_cmd = str_replace('{controller}','Admin\\'.$this->package.'Controller',$list_cmd);
         $list_cmd = str_replace('{action}','update',$list_cmd);
-        fwrite($rt_handle, $list_cmd);
+        $command_start .= $list_cmd;
         // Remove form
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','get',$list_cmd);
