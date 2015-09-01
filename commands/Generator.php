@@ -6,6 +6,7 @@
 namespace SafiStudio\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use SafiStudio\FormGenerator;
 use SafiStudio\ListGenerator;
 
@@ -76,6 +77,11 @@ class Generator extends Command
      * Generate MVC files
      */
     private function generateFiles(){
+        $this->info('Start to execute SQL file for '.$this->package);
+        if(!$this->executeSQL()){
+            $this->error('Check your query. SQL returns an error.');
+            return;
+        }
         $this->info('Start to generate controller file for '.$this->package);
         if(!$this->createController()){
             $this->error('Controller file exists. Please remove all package files before command run.');
@@ -103,6 +109,32 @@ class Generator extends Command
         }
         $this->info('Start to generate routing');
         $this->createRouting();
+    }
+
+    /**
+     * Execute SQL command
+     *
+     * @return bool
+     */
+    private function executeSQL(){
+        $generator = app_path().'/Generators/'.$this->package.'.php';
+
+        if(!file_exists($generator)){
+            $this->error('Brak pliku generatora');
+            return false;
+        }
+        include($generator);
+
+        if($sql && is_array($sql)){
+            $rt = true;
+            foreach($sql as $q){
+                if(!DB::statement($q))
+                    return false;
+            }
+            return $rt;
+        }
+
+        return true;
     }
 
     /**
@@ -213,11 +245,6 @@ class Generator extends Command
 
         if(!is_dir($rq_path))
             mkdir($rq_path, 0755);
-
-        if(!file_exists($generator)){
-            $this->error('Brak pliku generatora');
-            return false;
-        }
 
         // if(file_exists($model_path.$model_name.'.php'))
         // return false;

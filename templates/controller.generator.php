@@ -58,26 +58,30 @@ class GeneratorNameController extends Controller
 
         // Data strone
         $db_data = array();
-        foreach($data as $key => $value){
-            $db_data[$key] = $value;
+        if(is_array($data)){
+            foreach($data as $key => $value){
+                $db_data[$key] = $value;
+            }
         }
 
         // Files store
-        foreach($files as $key => $file){
-            if($file && $file->isValid()){
-                $db_data[$key] = $file->getClientOriginalName();
-                $bpath = public_path().'/data';
-                if(!is_dir($bpath))
-                    mkdir($bpath, 0755);
-                if(!is_dir($bpath.'/{short_name}'))
-                    mkdir($bpath.'/{short_name}', 0755);
-                $fname_sfx = time();
-                if(file_exists($bpath.'/{short_name}/'.$db_data[$key]))
-                    $file->move($bpath.'/{short_name}/',$fname_sfx.$db_data[$key]);
-                else
-                    $file->move($bpath.'/{short_name}/',$db_data[$key]);
-            }
+        if(is_array($files)){
+            foreach($files as $key => $file){
+                if($file && $file->isValid()){
+                    $db_data[$key] = $file->getClientOriginalName();
+                    $bpath = public_path().'/data';
+                    if(!is_dir($bpath))
+                        mkdir($bpath, 0755);
+                    if(!is_dir($bpath.'/{short_name}'))
+                        mkdir($bpath.'/{short_name}', 0755);
+                    $fname_sfx = time();
+                    if(file_exists($bpath.'/{short_name}/'.$db_data[$key]))
+                        $file->move($bpath.'/{short_name}/',$fname_sfx.$db_data[$key]);
+                    else
+                        $file->move($bpath.'/{short_name}/',$db_data[$key]);
+                }
 
+            }
         }
 
         $object = new GeneratorNameModel($db_data);
@@ -142,23 +146,27 @@ class GeneratorNameController extends Controller
         $files = $request->file('data');
 
         $db_data = array();
-        foreach($data as $key => $value){
-            $db_data[$key] = $value;
+        if(is_array($data)){
+            foreach($data as $key => $value){
+                $db_data[$key] = $value;
+            }
         }
 
-        foreach($files as $key => $file){
-            if($file && $file->isValid()){
-                $db_data[$key] = $file->getClientOriginalName();
-                $bpath = public_path().'/data';
-                if(!is_dir($bpath))
-                    mkdir($bpath, 0755);
-                if(!is_dir($bpath.'/{short_name}'))
-                    mkdir($bpath.'/{short_name}', 0755);
-                $fname_sfx = time();
-                if(file_exists($bpath.'/{short_name}/'.$db_data[$key]))
-                    $file->move($bpath.'/{shrot_name}/',$fname_sfx.$db_data[$key]);
-                else
-                    $file->move($bpath.'/{short_name}/',$db_data[$key]);
+        if(is_array($files)){
+            foreach($files as $key => $file){
+                if($file && $file->isValid()){
+                    $db_data[$key] = $file->getClientOriginalName();
+                    $bpath = public_path().'/data';
+                    if(!is_dir($bpath))
+                        mkdir($bpath, 0755);
+                    if(!is_dir($bpath.'/{short_name}'))
+                        mkdir($bpath.'/{short_name}', 0755);
+                    $fname_sfx = time();
+                    if(file_exists($bpath.'/{short_name}/'.$db_data[$key]))
+                        $file->move($bpath.'/{shrot_name}/',$fname_sfx.$db_data[$key]);
+                    else
+                        $file->move($bpath.'/{short_name}/',$db_data[$key]);
+                }
             }
         }
 

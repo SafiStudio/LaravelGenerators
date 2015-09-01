@@ -87,4 +87,4 @@ $list = [
 ];
 
 // Searchable fields
-$search = ['title','city','address','description'];
+$search = ['title', 'city', 'address', 'description'];
