@@ -1,5 +1,5 @@
 <?php
-$sql = "
+$sql = ["
     CREATE TABLE IF NOT EXISTS hotels(
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NULL,
@@ -10,7 +10,7 @@ $sql = "
     `create_date` DATETIME NOT NULL,
     PRIMARY KEY(id)
     );
-";
+"];
 // Form view
 $form = [
     'title' => 'Formularz Hotelu',

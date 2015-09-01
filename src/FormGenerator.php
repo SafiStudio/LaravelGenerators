@@ -139,7 +139,7 @@ class FormGenerator{
             $options []= '<option value="'.$value.'"{{ (old(\'data.{name}\')==\''.$value.'\' || $item->{name}==\''.$value.'\') ? \' selected="selected"\' : \'\' }}>'.$label.'</option>';
         }
 
-        $code = str_replace('{options}', implode("\n\t\t\t\t\t\t\t", $options), $code);
+        $code = str_replace('{options}', implode("\n\t\t\t\t\t\t\t\t", $options), $code);
 
         return $code;
     }
