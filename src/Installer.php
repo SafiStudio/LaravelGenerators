@@ -78,6 +78,7 @@ class Installer
             'vendor/safistudio/generators/templates/views/panel.blade.php' => 'resources/views/admin/panel.blade.php',
             'vendor/safistudio/generators/templates/views/menu.blade.php' => 'resources/views/admin/menu.blade.php',
             'vendor/safistudio/generators/sample/Hotels.php' => 'app/Generators/Hotels.php',
+            'vendor/safistudio/generators/sample/Users.php' => 'app/Generators/Users.php',
             'vendor/safistudio/generators/templates/config/cms.php' => 'config/cms.php',
 
         ];
