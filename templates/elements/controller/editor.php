@@ -4,9 +4,9 @@ function getEditorCode($show){
         return "\$head = new HeadGenerator();
         \$head->attachScript('js/editor/ckeditor.js');
 
-        return view('admin.hotels.form',['item' => \$item, '_head_scripts' => \$head->getHead()]);";
+        return view('{form_view}',['item' => \$item, '_head_scripts' => \$head->getHead()]);";
     }
     else{
-        return "\n\t\treturn view('admin.hotels.form',['item' => \$item]);";
+        return "\n\t\treturn view('{form_view}',['item' => \$item]);";
     }
 }
