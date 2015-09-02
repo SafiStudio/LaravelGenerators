@@ -21,6 +21,11 @@ $sql = [
     ",
 ];
 
+// Set controller extensions
+$extensions = [
+
+];
+
 // Form view
 $form = [
     'title' => 'Formularz użytkownika',

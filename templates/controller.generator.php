@@ -7,8 +7,7 @@ use GeneratorNameSpace\GeneratorNameModel;
 use GeneratorNameSpace\Http\Requests\Admin\GeneratorNameRequest;
 use GeneratorNameSpace\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use SafiStudio\HeadGenerator;
-
+// {headgenerator}
 class GeneratorNameController extends Controller
 {
     /**
@@ -39,10 +38,7 @@ class GeneratorNameController extends Controller
     public function create()
     {
         $item = new GeneratorNameModel();
-        $head = new HeadGenerator();
-        // $head->attachScript('js/editor/ckeditor.js');
-
-        return view('{form_view}',['item' => $item, '_head_scripts' => $head->getHead()]);
+        // {editor}
     }
 
     /**
@@ -54,7 +50,6 @@ class GeneratorNameController extends Controller
     public function store(GeneratorNameRequest $request)
     {
         $data = $request->get('data');
-        $files = $request->file('data');
 
         // Data strone
         $db_data = array();
@@ -63,27 +58,7 @@ class GeneratorNameController extends Controller
                 $db_data[$key] = $value;
             }
         }
-
-        // Files store
-        if(is_array($files)){
-            foreach($files as $key => $file){
-                if($file && $file->isValid()){
-                    $db_data[$key] = $file->getClientOriginalName();
-                    $bpath = public_path().'/data';
-                    if(!is_dir($bpath))
-                        mkdir($bpath, 0755);
-                    if(!is_dir($bpath.'/{short_name}'))
-                        mkdir($bpath.'/{short_name}', 0755);
-                    $fname_sfx = time();
-                    if(file_exists($bpath.'/{short_name}/'.$db_data[$key]))
-                        $file->move($bpath.'/{short_name}/',$fname_sfx.$db_data[$key]);
-                    else
-                        $file->move($bpath.'/{short_name}/',$db_data[$key]);
-                }
-
-            }
-        }
-
+        // {files}
         $object = new GeneratorNameModel($db_data);
         $object->save();
 
@@ -120,11 +95,7 @@ class GeneratorNameController extends Controller
         if($validator->fails()){
             return redirect()->action('Admin\GeneratorNameController@index')->withErrors($validator);
         }
-
-        $head = new HeadGenerator();
-        // $head->attachScript('js/editor/ckeditor.js');
-
-        return view('{form_view}',['item' => $item, '_head_scripts' => $head->getHead()]);
+        // {editor}
     }
 
     /**
@@ -143,7 +114,6 @@ class GeneratorNameController extends Controller
         }
 
         $data = $request->get('data');
-        $files = $request->file('data');
 
         $db_data = array();
         if(is_array($data)){
@@ -151,25 +121,7 @@ class GeneratorNameController extends Controller
                 $db_data[$key] = $value;
             }
         }
-
-        if(is_array($files)){
-            foreach($files as $key => $file){
-                if($file && $file->isValid()){
-                    $db_data[$key] = $file->getClientOriginalName();
-                    $bpath = public_path().'/data';
-                    if(!is_dir($bpath))
-                        mkdir($bpath, 0755);
-                    if(!is_dir($bpath.'/{short_name}'))
-                        mkdir($bpath.'/{short_name}', 0755);
-                    $fname_sfx = time();
-                    if(file_exists($bpath.'/{short_name}/'.$db_data[$key]))
-                        $file->move($bpath.'/{shrot_name}/',$fname_sfx.$db_data[$key]);
-                    else
-                        $file->move($bpath.'/{short_name}/',$db_data[$key]);
-                }
-            }
-        }
-
+        // {files}
         $item->update($db_data);
 
         return redirect()->action('Admin\GeneratorNameController@index')->with('message', 'Element został pomyślnie zapisany');

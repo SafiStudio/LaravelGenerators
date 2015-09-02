@@ -11,6 +11,12 @@ $sql = ["
     PRIMARY KEY(id)
     );
 "];
+
+// Set controller extensions
+$extensions = [
+    'headgenerator', 'editor', 'files',
+];
+
 // Form view
 $form = [
     'title' => 'Formularz Hotelu',

@@ -84,31 +84,28 @@ class Generator extends Command
         }
         $this->info('Start to generate controller file for '.$this->package);
         if(!$this->createController()){
-            $this->error('Controller file exists. Please remove all package files before command run.');
-            return;
+            $this->warn('Controller file exists. Please remove all package files before command run.');
         }
         $this->info('Start to generate model file for '.$this->package);
         if(!$this->createModel()){
-            $this->error('Model file exists. Please remove all package files before command run.');
-            return;
+            $this->warn('Model file exists. Please remove all package files before command run.');
         }
         $this->info('Start to generate request file for '.$this->package);
         if(!$this->createRequest()){
-            $this->error('Request file exists. Please remove all package files before command run.');
-            return;
+            $this->warn('Request file exists. Please remove all package files before command run.');
         }
         $this->info('Start to generate form view file for '.$this->package);
         if(!$this->createFormView()){
-            $this->error('Form view file exists. Please remove all package files before command run.');
-            return;
+            $this->warn('Form view file exists. Please remove all package files before command run.');
         }
         $this->info('Start to generate list view file for '.$this->package);
         if(!$this->createListView()){
-            $this->error('List view file exists. Please remove all package files before command run.');
-            return;
+            $this->warn('List view file exists. Please remove all package files before command run.');
         }
         $this->info('Start to generate routing');
-        $this->createRouting();
+        if(!$this->createRouting()){
+            $this->warn('Routing for package exists. Please remove all package routing before command run.');
+        }
     }
 
     /**
@@ -123,7 +120,7 @@ class Generator extends Command
             $this->error('Brak pliku generatora');
             return false;
         }
-        include($generator);
+        include $generator;
 
         if($sql && is_array($sql)){
             $rt = true;
@@ -151,12 +148,14 @@ class Generator extends Command
         if(!is_dir($ctrl_path))
             mkdir($ctrl_path, 0755);
 
-        // if(file_exists($ctrl_path.$ctrl_name.'.php'))
-            // return false;
+        if(file_exists($ctrl_path.$ctrl_name.'.php'))
+            return false;
 
         copy($this->template_path.'/controller.generator.php', $ctrl_path.$ctrl_name.'.php');
 
         $ctrl = file_get_contents($ctrl_path.$ctrl_name.'.php');
+
+        $ctrl = $this->setControllerElements($ctrl);
 
         $ctrl = str_replace('GeneratorNameSpace\\',$this->namespace, $ctrl); // Set app namespaces
         $ctrl = str_replace('GeneratorNameController', $ctrl_name, $ctrl); // Set controller name
@@ -180,6 +179,33 @@ class Generator extends Command
     }
 
     /**
+     * Method to change controller comment elements to PHP code
+     *
+     * @return string
+     */
+    private function setControllerElements($ctrl){
+        $generator = app_path().'/Generators/'.$this->package.'.php';
+        include $generator;
+
+        preg_match_all("/\/\/ {(.*?)}/", $ctrl, $matches);
+        $used_ext = [];
+        if(isset($matches[1])){
+            foreach($matches[1] as $i => $extension){
+                include_once $this->template_path.'/elements/controller/'.$extension.'.php';
+                $fn_name = 'get'.ucfirst($extension).'Code';
+                if(!in_array($extension, $used_ext) && in_array($extension, $extensions)){
+                    $ctrl = str_replace($matches[0][$i], $fn_name(true), $ctrl);
+                }
+                else{
+                    $ctrl = str_replace($matches[0][$i], $fn_name(false), $ctrl);
+                }
+            }
+        };
+        return $ctrl;
+    }
+
+
+    /**
      * Generate model file
      *
      * @return bool
@@ -189,13 +215,8 @@ class Generator extends Command
         $model_name = $this->package.'Model';
         $generator = app_path().'/Generators/'.$this->package.'.php';
 
-        if(!file_exists($generator)){
-            $this->error('Brak pliku generatora');
+        if(file_exists($model_path.$model_name.'.php'))
             return false;
-        }
-
-        // if(file_exists($model_path.$model_name.'.php'))
-            // return false;
 
         copy($this->template_path.'/model.generator.php', $model_path.$model_name.'.php');
 
@@ -205,7 +226,7 @@ class Generator extends Command
         $model = str_replace('GeneratorNameModel', $model_name, $model); // Set model name
         $model = str_replace('{table_name}', strtolower($this->package), $model); // Set table name
 
-        include($generator);
+        include $generator;
 
         $fillable = [];
         foreach($form['fields'] as $key => $field){
@@ -246,8 +267,8 @@ class Generator extends Command
         if(!is_dir($rq_path))
             mkdir($rq_path, 0755);
 
-        // if(file_exists($model_path.$model_name.'.php'))
-        // return false;
+        if(file_exists($rq_path.$rq_name.'.php'))
+            return false;
 
         copy($this->template_path.'/request.generator.php', $rq_path.$rq_name.'.php');
 
@@ -256,7 +277,7 @@ class Generator extends Command
         $request = str_replace('GeneratorNameSpace',substr($this->namespace, 0, -1), $request); // Set app namespaces
         $request = str_replace('GeneratorNameRequest', $rq_name, $request); // Set request name
 
-        include($generator);
+        include $generator;
 
         $rules = [];
         $attributes = [];
@@ -297,8 +318,8 @@ class Generator extends Command
         if(!is_dir($view_path))
             mkdir($view_path, 0755);
 
-        // if(file_exists($view_path.$view_name))
-            // return false;
+        if(file_exists($view_path.$view_name))
+            return false;
 
         copy($this->template_path.'/form.generator.php', $view_path.$view_name);
 
@@ -334,8 +355,8 @@ class Generator extends Command
         if(!is_dir($view_path))
             mkdir($view_path, 0755);
 
-        // if(file_exists($view_path.$view_name))
-            // return false;
+        if(file_exists($view_path.$view_name))
+            return false;
 
         copy($this->template_path.'/list.generator.php', $view_path.$view_name);
 
@@ -364,6 +385,12 @@ class Generator extends Command
         $rt_file = app_path().'/Http/routes.php';
         if(!file_exists($rt_file))
             $add_php = true;
+        else
+            $check_ct = file_get_contents($rt_file);
+
+        if($check_ct && strpos($check_ct, "// --- Routing for ".$this->package)!==false){
+            return false;
+        }
 
         $rt_handle = fopen($rt_file, 'a+');
 
@@ -371,6 +398,8 @@ class Generator extends Command
         if($add_php)
             $header = "<?php \n\n".$header;
         fwrite($rt_handle, $header);
+
+
 
         $command_start = "\nRoute::group(['middleware' => 'auth.admin'], function(){\n\tRoute::group(['prefix' => 'admin/".strtolower($this->package)."'], function(){";
         $command = "\n\t\tRoute::{method}('{uri}', [\n\t\t\t'uses' => '{controller}@{action}'\n\t\t]);";
