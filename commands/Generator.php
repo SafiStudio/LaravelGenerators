@@ -211,9 +211,12 @@ class Generator extends Command
      * @return bool
      */
     private function createModel(){
-        $model_path = app_path().'/';
+        $model_path = app_path().'/Models/';
         $model_name = $this->package.'Model';
         $generator = app_path().'/Generators/'.$this->package.'.php';
+
+        if(!is_dir($model_path))
+            mkdir($model_path, 0755);
 
         if(file_exists($model_path.$model_name.'.php'))
             return false;
@@ -222,7 +225,7 @@ class Generator extends Command
 
         $model = file_get_contents($model_path.$model_name.'.php');
 
-        $model = str_replace('GeneratorNameSpace',substr($this->namespace, 0, -1), $model); // Set app namespaces
+        $model = str_replace('GeneratorNameSpace',substr($this->namespace, 0, -1).'\Models', $model); // Set app namespaces
         $model = str_replace('GeneratorNameModel', $model_name, $model); // Set model name
         $model = str_replace('{table_name}', strtolower($this->package), $model); // Set table name
 
