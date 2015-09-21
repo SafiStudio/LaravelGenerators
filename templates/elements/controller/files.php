@@ -13,10 +13,10 @@ function getFilesCode($show){
                     if(!is_dir(\$bpath.'/{short_name}'))
                         mkdir(\$bpath.'/{short_name}', 0755);
                     \$fname_sfx = time();
-                    if(file_exists(\$bpath.'/{short_name}/'.\$db_data[\$key]))
-                        \$file->move(\$bpath.'/{short_name}/',\$fname_sfx.\$db_data[\$key]);
-                    else
-                        \$file->move(\$bpath.'/{short_name}/',\$db_data[\$key]);
+                    if(file_exists(\$bpath.'/{short_name}/'.\$db_data[\$key])){
+                        \$db_data[\$key] = \$fname_sfx.'_'.\$db_data[\$key];
+                    }
+                    \$file->move(\$bpath.'/{short_name}/',\$db_data[\$key]);
                 }
 
             }

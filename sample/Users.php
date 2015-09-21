@@ -73,7 +73,7 @@ $form = [
         ],
         [
             'label' => 'Konto aktywne',
-            'name' => 'type',
+            'name' => 'active',
             'type' => 'select',
             'params' => [],
             'options' => [
