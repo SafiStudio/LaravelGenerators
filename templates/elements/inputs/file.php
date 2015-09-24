@@ -3,5 +3,5 @@
                             <input class="form-line-file" type="file" id="{name}" name="data[{name}]" {params} />
                             <span class="filename"><i class="icon fa fa-upload"></i><em>{{ ($item->{name}) ? $item->{name} : 'Wczytaj plik' }}</em></span>
                         </label>
-                        <span class="form-line-label">{label}</span>
                     </div>
+                    <span class="form-line-label">{label}</span>

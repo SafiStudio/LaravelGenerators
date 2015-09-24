@@ -11,7 +11,8 @@ $sql = [
       `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
       `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
       `type` tinyint(1) NOT NULL DEFAULT '0',
-      `active` tinyint(1) NOT NULL DEFAULT '0'
+      `active` tinyint(1) NOT NULL DEFAULT '0',
+      PRIMARY KEY(id)
     )
     ",
     // Add default administrator
