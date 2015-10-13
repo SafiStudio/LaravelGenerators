@@ -3,7 +3,7 @@
 namespace GeneratorNameSpace\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use GeneratorNameSpace\GeneratorNameModel;
+use GeneratorModelNameSpace\GeneratorNameModel;
 use GeneratorNameSpace\Http\Requests\Admin\GeneratorNameRequest;
 use GeneratorNameSpace\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;

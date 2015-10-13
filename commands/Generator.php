@@ -158,8 +158,9 @@ class Generator extends Command
         $ctrl = $this->setControllerElements($ctrl);
 
         $ctrl = str_replace('GeneratorNameSpace\\',$this->namespace, $ctrl); // Set app namespaces
+        $ctrl = str_replace('GeneratorModelNameSpace', $this->namespace.'\\Models', $ctrl); // Set controller name
         $ctrl = str_replace('GeneratorNameController', $ctrl_name, $ctrl); // Set controller name
-        $ctrl = str_replace('GeneratorNameModel', "Models\\".$model_name, $ctrl); // Set model namespace
+        $ctrl = str_replace('GeneratorNameModel', $model_name, $ctrl); // Set model namespace
         $ctrl = str_replace('GeneratorNameRequest', $request_name, $ctrl); // Set model namespace
 
         $form_view = 'admin.'.strtolower($this->package).'.form';
