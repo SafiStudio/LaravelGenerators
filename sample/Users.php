@@ -3,7 +3,7 @@
 $sql = [
     // Create users table
     "CREATE TABLE IF NOT EXISTS `users` (
-      `id` int(10) unsigned NOT NULL,
+      `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
       `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
       `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
       `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
