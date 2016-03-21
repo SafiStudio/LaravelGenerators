@@ -106,6 +106,8 @@ class Generator extends Command
         if(!$this->createRouting()){
             $this->warn('Routing for package exists. Please remove all package routing before command run.');
         }
+        $this->info('Start to generate lang file');
+        $this->createLanguageFile();
     }
 
     /**
@@ -385,6 +387,8 @@ class Generator extends Command
      * Generate routing for MVC
      */
     private function createRouting(){
+        $generator_routing = '//{generator_routing}';
+
         $add_php = false;
         $rt_file = app_path().'/Http/routes.php';
         if(!file_exists($rt_file))
@@ -396,17 +400,23 @@ class Generator extends Command
             return false;
         }
 
-        $rt_handle = fopen($rt_file, 'a+');
+        if(strpos($check_ct, $generator_routing) === false){
+            $routing_group_web = "Route::group(['middleware' => ['web']], function () {";
 
-        $header = "\n// --- Routing for ".$this->package."\n";
-        if($add_php)
-            $header = "<?php \n\n".$header;
-        fwrite($rt_handle, $header);
+            if(strpos($check_ct, $routing_group_web) !== false){
+                $check_ct = str_replace($routing_group_web, $routing_group_web."\n".$generator_routing, $check_ct);
 
+                $handle = fopen($rt_file, 'w+');
 
+                fwrite($handle, $check_ct);
+                fclose($handle);
+            }
+        }
 
-        $command_start = "\nRoute::group(['middleware' => 'auth.admin'], function(){\n\tRoute::group(['prefix' => 'admin/".strtolower($this->package)."'], function(){";
-        $command = "\n\t\tRoute::{method}('{uri}', [\n\t\t\t'uses' => '{controller}@{action}'\n\t\t]);";
+        $rt_handle = fopen($rt_file, 'w+');
+
+        $command_start = "\n\tRoute::group(['middleware' => 'auth.admin'], function(){\n\t\tRoute::group(['prefix' => 'admin/".strtolower($this->package)."'], function(){";
+        $command = "\n\t\t\tRoute::{method}('{uri}', [\n\t\t\t\t'uses' => '{controller}@{action}'\n\t\t\t]);";
         // List routing
         $list_cmd = $command;
         $list_cmd = str_replace('{method}','get',$list_cmd);
@@ -465,10 +475,38 @@ class Generator extends Command
         $command_start .= $list_cmd;
 
         // Write to routes
-        $command_end = "\n\t});\n});";
-        fwrite($rt_handle, $command_start . $command_end);
+        $command_end = "\n\t\t});\n\t});";
+
+        $header = "\n\t// --- Routing for ".$this->package."\n";
+        if($add_php)
+            $header = "<?php \n\n".$header;
+        //fwrite($rt_handle, $header);
+
+        $write_command = $header . $command_start . $command_end;
+        $write_command = str_replace($generator_routing, $write_command."\n\n".$generator_routing, $check_ct);
+
+        fwrite($rt_handle, $write_command);
 
         $this->info('Routing created sucessfully');
+
+        return true;
+    }
+
+    private function createLanguageFile(){
+        $lang_path = base_path().'/resources/lang/pl';
+
+        if(!file_exists($lang_path)){
+            mkdir($lang_path, 0777, true);
+            $lang_file = $lang_path.'/panel.php';
+
+            $panel = file_get_contents('vendor/safistudio/generators/languages/pl/panel.php');
+
+            $file = fopen($lang_file, 'w');
+            fwrite($file, $panel);
+        }
+        else{
+            $this->info('Language file exists');
+        }
     }
 
     /**

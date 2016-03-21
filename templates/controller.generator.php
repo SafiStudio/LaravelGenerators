@@ -62,7 +62,7 @@ class GeneratorNameController extends Controller
         $object = new GeneratorNameModel($db_data);
         $object->save();
 
-        return redirect()->action('Admin\GeneratorNameController@index')->with('message', 'Element został pomyślnie zapisany');
+        return redirect()->action('Admin\GeneratorNameController@index')->with('message', trans('panel.item.saved'));
     }
 
     /**
@@ -74,7 +74,7 @@ class GeneratorNameController extends Controller
     public function show($id)
     {
         $item = GeneratorNameModel::find($id);
-        $validator = \Validator::make(['check'=>$item],['check'=>'required'],['required'=>'Nie mogę odnaleźć elementu do edycji']);
+        $validator = \Validator::make(['check'=>$item],['check'=>'required'],['required'=>trans('panel.item.not_found')]);
         if($validator->fails()){
             return redirect()->action('Admin\GeneratorNameController@index')->withErrors($validator);
         }
@@ -91,7 +91,7 @@ class GeneratorNameController extends Controller
     public function edit($id)
     {
         $item = GeneratorNameModel::find($id);
-        $validator = \Validator::make(['check'=>$item],['check'=>'required'],['required'=>'Nie mogę odnaleźć elementu do edycji']);
+        $validator = \Validator::make(['check'=>$item],['check'=>'required'],['required'=>trans('panel.item.not_found')]);
         if($validator->fails()){
             return redirect()->action('Admin\GeneratorNameController@index')->withErrors($validator);
         }
@@ -108,7 +108,7 @@ class GeneratorNameController extends Controller
     public function update(GeneratorNameRequest $request, $id)
     {
         $item = GeneratorNameModel::find($id);
-        $validator = \Validator::make(['check'=>$item],['check'=>'required'],['required'=>'Nie mogę odnaleźć elementu do edycji']);
+        $validator = \Validator::make(['check'=>$item],['check'=>'required'],['required'=>trans('panel.item.not_found')]);
         if($validator->fails()){
             return redirect()->action('Admin\GeneratorNameController@index')->withErrors($validator);
         }
@@ -124,7 +124,7 @@ class GeneratorNameController extends Controller
         // {files}
         $item->update($db_data);
 
-        return redirect()->action('Admin\GeneratorNameController@index')->with('message', 'Element został pomyślnie zapisany');
+        return redirect()->action('Admin\GeneratorNameController@index')->with('message', trans('panel.item.saved'));
     }
 
     /**
@@ -136,13 +136,13 @@ class GeneratorNameController extends Controller
     public function destroy($id)
     {
         $item = GeneratorNameModel::find($id);
-        $validator = \Validator::make(['check'=>$item],['check'=>'required'],['required'=>'Nie mogę odnaleźć elementu do usunięcia']);
+        $validator = \Validator::make(['check'=>$item],['check'=>'required'],['required'=>trans('panel.item.not_found')]);
         if($validator->fails()){
             return redirect()->action('Admin\GeneratorNameController@index')->withErrors($validator);
         }
         else{
             $item->delete();
-            return redirect()->action('Admin\GeneratorNameController@index')->with('message', 'Element został pomyślnie usunięty');
+            return redirect()->action('Admin\GeneratorNameController@index')->with('message', trans('panel.item.removed'));
         }
     }
 }
