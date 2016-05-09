@@ -48,7 +48,7 @@ var ssCalendar = function(identifier){
      */
     var getCalendarGrid = function(){
         var fday = new Date(_active_day.getFullYear(), _active_day.getMonth(), 1).getDay();
-        var days =  new Date(_active_day.getFullYear(), _active_day.getMonth(), 0).getDate();
+        var days =  new Date(_active_day.getFullYear(), _active_day.getMonth() + 1, 0).getDate();
         var gridHTML = '';
         for (var i=0; i<=6; i++){
             gridHTML += '<span class="short-day">'+_short_days[i]+'</span>';
@@ -113,7 +113,7 @@ var ssCalendar = function(identifier){
      * Navigate to previous month
      */
     var prevMonth = function(){
-        if(_active_day.getMonth() > 1){
+        if(_active_day.getMonth() > 0){
             _active_day.setMonth(_active_day.getMonth()-1);
             _active_day.setDate(1);
         }
