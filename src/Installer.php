@@ -128,7 +128,7 @@ class Installer
         }
 
         $add_php = false;
-        $rt_file = 'app/routes/web.php';
+        $rt_file = 'routes/web.php';
         if(file_exists($rt_file)){
             $rt_handle = fopen($rt_file, 'a+');
             $rt_code = "
