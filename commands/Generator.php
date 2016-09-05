@@ -390,7 +390,7 @@ class Generator extends Command
         $generator_routing = '//{generator_routing}';
 
         $add_php = false;
-        $rt_file = app_path().'/Http/routes.php';
+        $rt_file = 'routes/web.php';
         if(!file_exists($rt_file))
             $add_php = true;
         else
@@ -401,16 +401,13 @@ class Generator extends Command
         }
 
         if(strpos($check_ct, $generator_routing) === false){
-            $routing_group_web = "Route::group(['middleware' => ['web']], function () {";
+            //$routing_group_web = "Route::group(['middleware' => ['web']], function () {";
+            //$check_ct = str_replace($routing_group_web, $routing_group_web."\n".$generator_routing, $check_ct);
 
-            if(strpos($check_ct, $routing_group_web) !== false){
-                $check_ct = str_replace($routing_group_web, $routing_group_web."\n".$generator_routing, $check_ct);
+            $handle = fopen($rt_file, 'w+');
 
-                $handle = fopen($rt_file, 'w+');
-
-                fwrite($handle, $check_ct);
-                fclose($handle);
-            }
+            fwrite($handle, $check_ct);
+            fclose($handle);
         }
 
         $rt_handle = fopen($rt_file, 'w+');
