@@ -2,9 +2,9 @@
 
 namespace GeneratorNameSpace\Http\Requests\Admin;
 
-use GeneratorNameSpace\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class GeneratorNameRequest extends Request
+class GeneratorNameRequest extends FormRequest
 {
     public function rules(){
         return '{rules}';

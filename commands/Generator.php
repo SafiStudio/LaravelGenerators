@@ -126,8 +126,9 @@ class Generator extends Command
 
         if($sql && is_array($sql)){
             $rt = true;
+            $connection = isset($connection) ? $connection : 'default';
             foreach($sql as $q){
-                if(!DB::statement($q))
+                if(!DB::connection($connection)->statement($q))
                     return false;
             }
             return $rt;
@@ -171,6 +172,8 @@ class Generator extends Command
         $ctrl = str_replace('{form_view}', $form_view, $ctrl); // Set form view
         $ctrl = str_replace('{list_view}', $list_view, $ctrl); // Set list view
         $ctrl = str_replace('{short_name}', strtolower($this->package), $ctrl); // Set list view
+
+        $ctrl = str_replace('GeneratorName', $this->package, $ctrl); // Set list view
 
         $fctrl = fopen($ctrl_path.$ctrl_name.'.php', 'w');
         fwrite($fctrl, $ctrl);
