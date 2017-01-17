@@ -127,6 +127,7 @@ class Installer
             fwrite($file, $middle);
         }
 
+        /*
         $add_php = false;
         $rt_file = 'routes/web.php';
         if(file_exists($rt_file)){
@@ -146,6 +147,7 @@ Route::get('admin/panel', [
             fwrite($rt_handle, $rt_code);
             fclose($rt_handle);
         }
+        */
 
 
         echo "\nStatic files are copied. Remeber to add 'auth.admin' => \\".$namespace."Http\\Middleware\\Admin\\Authenticate::class into Kernel middlewares\n\n";
