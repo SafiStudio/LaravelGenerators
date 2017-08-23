@@ -18,6 +18,10 @@ class Installer
     public static function createConsoleCommand(){
         $generator = 'vendor/safistudio/generators/commands/Generator.php';
         $command_file = 'app/Console/Commands/Generator.php';
+        $command_path = app_path().'/Console/Commands';
+
+        if(!is_dir($command_path))
+            mkdir($command_path, 0755, true);
 
         if(file_exists($command_file))
             unlink($command_file);
@@ -127,16 +131,18 @@ class Installer
             fwrite($file, $middle);
         }
 
-        /*
-        $add_php = false;
+
         $rt_file = 'routes/web.php';
         if(file_exists($rt_file)){
-            $rt_handle = fopen($rt_file, 'a+');
-            $rt_code = "
+            $rt_contents = file_get_contents($rt_file);
+
+            if(strpos($rt_contents, 'Routing for Panel') == false){
+                $rt_handle = fopen($rt_file, 'a+');
+                $rt_code = "
 // Admin Authentication routes...
 Route::get('admin/login', 'Admin\\AuthController@getLogin');
-Route::post('admin/login', 'Admin\\AuthController@postLogin');
-Route::get('admin/logout', 'Admin\\AuthController@getLogout');
+Route::post('admin/login', 'Admin\\AuthController@login');
+Route::get('admin/logout', 'Admin\\AuthController@logout');
 
 // --- Routing for Panel
 Route::get('admin/panel', [
@@ -144,10 +150,11 @@ Route::get('admin/panel', [
 	'uses' => 'Admin\\PanelController@index'
 ]);
             ";
-            fwrite($rt_handle, $rt_code);
-            fclose($rt_handle);
+                fwrite($rt_handle, $rt_code);
+                fclose($rt_handle);
+            }
         }
-        */
+
 
 
         echo "\nStatic files are copied. Remeber to add 'auth.admin' => \\".$namespace."Http\\Middleware\\Admin\\Authenticate::class into Kernel middlewares\n\n";

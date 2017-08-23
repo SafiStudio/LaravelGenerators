@@ -8,8 +8,8 @@ $sql = [
       `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
       `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
       `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-      `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-      `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+      `created_at` timestamp NOT NULL DEFAULT NULL,
+      `updated_at` timestamp NOT NULL DEFAULT NULL,
       `type` tinyint(1) NOT NULL DEFAULT '0',
       `active` tinyint(1) NOT NULL DEFAULT '0',
       PRIMARY KEY(id)
@@ -18,7 +18,7 @@ $sql = [
     // Add default administrator
     "INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `type`, `active`)
     VALUES
-    (1, 'Administrator', 'biuro@safistudio.pl', '$2y$10$3W76Y3yyN8iHQ1Vp8QMXD..WVGbSf2uE6sej3g4Nr/4C66.iYR.SS', 'h5oZinLGxSnJkX0EmKoqTczBIxFz8lavdfpAyzUfLcM1EzDYMfUxDd1QP17B', '".date('Y-m-d H:i:s')."', '".date('Y-m-d H:i:s')."', 0, 1)
+    (1, 'Administrator', 'biuro@safistudio.pl', '$2y$10$3W76Y3yyN8iHQ1Vp8QMXD..WVGbSf2uE6sej3g4Nr/4C66.iYR.SS', 'h5oZinLGxSnJkX0EmKoqTczBIxFz8lavdfpAyzUfLcM1EzDYMfUxDd1QP17B', '".date('Y-m-d H:i:s')."', '".date('Y-m-d H:i:s')."', 1, 1)
     ",
 ];
 

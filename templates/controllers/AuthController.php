@@ -1,12 +1,12 @@
 <?php
 
-namespace GeneratorNameSpace\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use GeneratorNameSpace\User;
+use App\Models\UsersModel;
+use Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Validator;
-use GeneratorNameSpace\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -24,7 +24,7 @@ class AuthController extends Controller
 
     var $loginPath = 'admin/login';
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesUsers;
 
     /**
      * Create a new authentication controller instance.
@@ -33,7 +33,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware('guest', ['except' => 'logout']);
     }
 
     /**
@@ -59,7 +59,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return UsersModel::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -80,11 +80,16 @@ class AuthController extends Controller
      * Do when user is authenticated
      *
      * @param \Illuminate\Http\Request  $request
-     * @param \App\User $user
+     * @param \App\Models\UsersModel $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function authenticated(Request $request, User $user){
+    public function authenticated(Request $request, UsersModel $user){
+        if($user->active == 0 || $user->type != 1){
+            Auth::logout();
+            return redirect('/');
+        }
+
         return redirect(action('Admin\PanelController@index'));
     }
 }

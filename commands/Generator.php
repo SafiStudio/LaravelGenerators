@@ -12,7 +12,7 @@ use SafiStudio\ListGenerator;
 
 class Generator extends Command
 {
-    use \Illuminate\Console\AppNamespaceDetectorTrait;
+    use \Illuminate\Console\DetectsApplicationNamespace;
 
     /**
      * The name and signature of the console command.
@@ -126,7 +126,7 @@ class Generator extends Command
 
         if($sql && is_array($sql)){
             $rt = true;
-            $connection = isset($connection) ? $connection : 'default';
+            $connection = isset($connection) ? $connection : 'mysql';
             foreach($sql as $q){
                 if(!DB::connection($connection)->statement($q))
                     return false;
@@ -274,7 +274,7 @@ class Generator extends Command
         $generator = app_path().'/Generators/'.$this->package.'.php';
 
         if(!is_dir($rq_path))
-            mkdir($rq_path, 0755);
+            mkdir($rq_path, 0755, true);
 
         if(file_exists($rq_path.$rq_name.'.php'))
             return false;

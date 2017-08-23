@@ -1,6 +1,6 @@
 @extends('layouts.login')
 @section('content')
-    <form method="POST" action="{{ action('Admin\AuthController@postLogin') }}">
+    <form method="POST" action="{{ action('Admin\AuthController@login') }}">
         {!! csrf_field() !!}
         <div class="form">
             <div class="form-line login-line">

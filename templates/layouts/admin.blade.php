@@ -15,14 +15,7 @@
 <body>
 <section class="top">
     <header class="header">
-        <div class="logo">
-                <span>
-                    <a href="{{ action('Admin\PanelController@index') }}">
-                        <img src="{{ asset('images/admin/'.config('cms.logo')) }}" alt="Safi Studio" /> CMS
-                    </a>
-                </span>
-        </div>
-        <a href="{{ action('Admin\AuthController@getLogout') }}" class="logout">
+        <a href="{{ action('Admin\AuthController@logout') }}" class="logout">
             <i class="icon fa fa-sign-out"></i> Wyloguj się
         </a>
     </header>

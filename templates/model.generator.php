@@ -21,13 +21,6 @@ class GeneratorNameModel extends Model
     protected $fillable = '{fillable}';
 
     /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
      * The array of searchable fields
      *
      * @var array
@@ -44,9 +37,11 @@ class GeneratorNameModel extends Model
     public function scopeSearch($query, $search_value)
     {
         if($search_value){
-            foreach($this->search_fields as $field){
-                $query->orWhere($field, 'LIKE', '%'.$search_value.'%');
-            }
+            $query->where(function($query) use($search_value){
+                foreach($this->search_fields as $field){
+                    $query->orWhere($field, 'LIKE', '%'.$search_value.'%');
+                }
+            });
         }
         return $query;
     }
